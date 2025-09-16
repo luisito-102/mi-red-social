@@ -26,7 +26,7 @@ form.addEventListener("submit", (e) => {
   const text = input.value.trim();
   if (!text) return;
   ws.send(text);
-  addMsg(text, true);
+  addMsg(text, true); // mostrar solo localmente el tuyo
   input.value = "";
   input.focus();
 });
