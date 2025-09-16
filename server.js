@@ -16,10 +16,11 @@ const wss = new WebSocket.Server({ server });
 
 wss.on("connection", (ws) => {
   ws.on("message", (raw) => {
-    const msg = raw.toString().slice(0, 500); // seguridad básica: limitar tamaño
-    // Reenviar a TODOS (broadcast)
+    const msg = raw.toString().slice(0, 500); // limitar tamaño por seguridad
+
+    // Reenviar el mensaje a todos MENOS al que lo envió
     wss.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
         client.send(msg);
       }
     });
